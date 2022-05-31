@@ -1,0 +1,29 @@
+{
+  "name": "tutorials-api",
+  "version": "1.0.0",
+  "description": "Tutorials API",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rm -rf dist && tsc",
+    "start": "node dist/index.js",
+    "dev": "tsc-watch --onSuccess \"nodemon dist/index.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juanlarrambebere/tutorials-api.git"
+  },
+  "author": "juanlarrambebere",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/juanlarrambebere/tutorials-api/issues"
+  },
+  "homepage": "https://github.com/juanlarrambebere/tutorials-api#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.16",
+    "tsc-watch": "^5.0.3",
+    "typescript": "^4.7.2"
+  },
+  "dependencies": {
+  }
+}
