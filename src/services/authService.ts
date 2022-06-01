@@ -16,8 +16,8 @@ export const authenticateUser = async (email: string, password: string): Promise
 
   return jwt.sign(
     {
-      user_id: user.id,
-      signed_at: new Date(),
+      userId: user.id,
+      signedAt: new Date(),
     },
     process.env.AUTHENTICATION_SECRET!
   );

@@ -1,6 +1,9 @@
 import express, { NextFunction, Request, Response } from "express";
+import authenticate from "../middlewares/authentication";
 
 const router = express.Router();
+
+router.use(authenticate);
 
 router.get("/", async (req: Request, res: Response, next: NextFunction) => {
   res.status(500).json({ message: "Not implemented yet" });
