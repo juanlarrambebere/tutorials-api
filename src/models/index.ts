@@ -1,4 +1,5 @@
 import { Sequelize } from "sequelize-typescript";
+import User from "./User";
 
 const sequelize = new Sequelize(process.env.DATABASE_ENDPOINT!, {
   pool: {
@@ -7,6 +8,7 @@ const sequelize = new Sequelize(process.env.DATABASE_ENDPOINT!, {
     acquire: 30000,
     idle: 10000,
   },
+  models: [User],
 });
 
 export default sequelize;

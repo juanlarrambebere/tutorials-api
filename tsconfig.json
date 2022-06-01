@@ -8,5 +8,9 @@
     "skipLibCheck": true,                                /* Skip type checking all .d.ts files. */
     "outDir": "dist",                                    /* Specify an output folder for all emitted files. */
     "rootDir": "src",                                    /* Specify the root directory of input files. */
+    "experimentalDecorators":true,                       /* Enable experimental support for ES7 decorators. */
+    "emitDecoratorMetadata":true,                        /* Enable experimental support for emitting type metadata for decorators. */
+    "strictPropertyInitialization": false,               /* Enable strict property initialization in generated code. */
+
   }
 }

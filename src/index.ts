@@ -1,6 +1,6 @@
 import "dotenv/config";
 import express from "express";
-import database from "./config/database";
+import database from "./models";
 import authRouter from "./routers/auth";
 import tutorialsRouter from "./routers/tutorials";
 
@@ -15,10 +15,11 @@ app.use("/tutorials", tutorialsRouter);
 
 app.listen(PORT, async () => {
   try {
-    await database.authenticate();
-    console.log(`listening on port http://localhost:${PORT}`);
+    await database.sync({ alter: true });
   } catch (error) {
-    console.error("Failed to authenticate to the database", error);
+    console.error("Error while synchronizing the database", error);
     process.exit(1);
   }
+
+  console.log(`Server running in http://localhost:${PORT}`);
 });
