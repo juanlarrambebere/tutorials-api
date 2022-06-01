@@ -1,8 +1,9 @@
 import "dotenv/config";
 import express from "express";
+import errorHandler from "./middlewares/errorHandler";
 import database from "./models";
-import authRouter from "./routers/auth";
-import tutorialsRouter from "./routers/tutorials";
+import authRouter from "./routers/authRouter";
+import tutorialsRouter from "./routers/tutorialsRouter";
 
 const PORT = process.env.APP_PORT;
 
@@ -12,6 +13,8 @@ app.use(express.json());
 
 app.use("/auth", authRouter);
 app.use("/tutorials", tutorialsRouter);
+
+app.use(errorHandler);
 
 app.listen(PORT, async () => {
   try {
