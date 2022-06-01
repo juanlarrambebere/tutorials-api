@@ -5,7 +5,12 @@ export const createTutorialSchema = z.object({
     title: z.string({
       required_error: "title is required",
     }),
-    video_url: z.string().optional(),
+    videoUrl: z
+      .string()
+      .url({
+        message: "video_url must be a valid url",
+      })
+      .optional(),
     description: z.string().optional(),
     status: z.string().optional(),
   }),
