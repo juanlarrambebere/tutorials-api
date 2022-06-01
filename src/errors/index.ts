@@ -2,22 +2,24 @@ export class ApiError implements Error {
   name: string;
   message: string;
   status: number;
+  details?: any;
 
-  constructor(message: string, status: number, code: string) {
+  constructor(message: string, status: number, code: string, details: any) {
     this.message = message;
     this.status = status;
     this.name = code;
+    this.details = details;
   }
 }
 
 export class BadRequestError extends ApiError {
-  constructor(message: string) {
-    super(message, 400, "bad_request");
+  constructor(message: string, details = null) {
+    super(message, 400, "bad_request", details);
   }
 }
 
 export class UnauthorizedError extends ApiError {
-  constructor(message: string) {
-    super(message, 401, "unauthorized");
+  constructor(message: string, details = null) {
+    super(message, 401, "unauthorized", details);
   }
 }

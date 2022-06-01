@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { UnauthorizedError } from "../errors";
-import { UserAuthInput } from "../schema/userAuthSchema";
+import { UserAuthInput } from "../schemas/userAuthInputSchema";
 import { authenticateUser } from "../services/authService";
 
 export const authHandler = async (req: Request<{}, {}, UserAuthInput>, res: Response, next: NextFunction) => {

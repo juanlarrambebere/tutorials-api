@@ -6,6 +6,7 @@ const handleError = (err: Error, req: Request, res: Response, next: NextFunction
     return res.status(err.status).json({
       code: err.name,
       message: err.message,
+      details: err.details,
     });
   }
 
