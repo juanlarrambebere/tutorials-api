@@ -23,3 +23,9 @@ export class UnauthorizedError extends ApiError {
     super(message, 401, "unauthorized", details);
   }
 }
+
+export class ForbiddenError extends ApiError {
+  constructor(message: string, details = null) {
+    super(message, 403, "forbidden", details);
+  }
+}
