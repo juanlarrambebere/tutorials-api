@@ -1,4 +1,4 @@
-import { AllowNull, Column, Model, Table, Unique } from "sequelize-typescript";
+import { AllowNull, Column, Index, Model, Table } from "sequelize-typescript";
 
 @Table({ timestamps: true })
 class User extends Model {
@@ -11,7 +11,11 @@ class User extends Model {
   lastName: string;
 
   @AllowNull(false)
-  @Unique
+  // TODO investigate why @Unique is not working, it duplicated the index at db level.
+  @Index({
+    name: "email_index",
+    type: "UNIQUE",
+  })
   @Column
   email: string;
 
