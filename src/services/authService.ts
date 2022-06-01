@@ -14,5 +14,11 @@ export const authenticateUser = async (email: string, password: string): Promise
     return null;
   }
 
-  return jwt.sign({ user, signedAt: new Date() }, process.env.AUTHENTICATION_SECRET!);
+  return jwt.sign(
+    {
+      user_id: user.id,
+      signed_at: new Date(),
+    },
+    process.env.AUTHENTICATION_SECRET!
+  );
 };
