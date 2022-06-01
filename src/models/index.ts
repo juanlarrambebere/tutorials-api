@@ -12,4 +12,6 @@ const sequelize = new Sequelize(process.env.DATABASE_ENDPOINT!, {
   models: [User, Tutorial],
 });
 
+Tutorial.belongsTo(User, { foreignKey: { name: "userId", allowNull: false }, onDelete: "CASCADE" });
+
 export default sequelize;
