@@ -8,7 +8,7 @@ export const createTutorialSchema = z.object({
     videoUrl: z
       .string()
       .url({
-        message: "video_url must be a valid url",
+        message: "videoUrl must be a valid url",
       })
       .optional(),
     description: z.string().optional(),
