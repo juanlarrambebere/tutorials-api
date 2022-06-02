@@ -2,9 +2,9 @@ import { Op } from "sequelize";
 import { Sequelize } from "sequelize-typescript";
 import { ForbiddenError } from "../errors";
 import Tutorial from "../models/Tutorial";
-import User from "../models/User";
 import { CreateTutorialInput } from "../schemas/createTutorialSchema";
 import { ListTutorialsFilters, ListTutorialsPaging, ListTutorialsSorting } from "../schemas/listTutorialsSchema";
+import { UpdateTutorialInput } from "../schemas/updateTutorialSchema";
 
 export const MAX_LIMIT = 200;
 const DEFAULT_OFFSET = 0;
@@ -37,8 +37,23 @@ export const getTutorials = async (filters: ListTutorialsFilters, paging: ListTu
   };
 };
 
+export const createTutorial = async (userId: number, tutorialData: CreateTutorialInput) => {
+  return await Tutorial.create({ userId, ...tutorialData });
+};
+
+export const updateTutorial = async (tutorialId: number, userId: number, tutorialData: UpdateTutorialInput) => {
+  const tutorial = await getTutorial(tutorialId);
+  if (!tutorial) return null;
+
+  if (tutorial.get("userId") !== userId) {
+    throw new ForbiddenError("You are not allowed to update tutorials you don't own");
+  }
+
+  return await tutorial.update(tutorialData);
+};
+
 export const deleteTutorial = async (userId: number, tutorialId: number) => {
-  const tutorial = await Tutorial.findByPk(tutorialId, { include: User });
+  const tutorial = await Tutorial.findByPk(tutorialId);
   if (!tutorial) return null;
 
   if (tutorial.get("userId") !== userId) {
@@ -51,8 +66,4 @@ export const deleteTutorial = async (userId: number, tutorialId: number) => {
 
 export const deleteUsersTutorials = async (userId: number) => {
   return await Tutorial.destroy({ where: { userId } });
-};
-
-export const createTutorial = async (userId: number, tutorialData: CreateTutorialInput) => {
-  return await Tutorial.create({ userId, ...tutorialData });
 };

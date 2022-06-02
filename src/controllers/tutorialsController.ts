@@ -2,7 +2,8 @@ import { NextFunction, Request, Response } from "express";
 import { NotFoundError } from "../errors";
 import { CreateTutorialInput } from "../schemas/createTutorialSchema";
 import { ListTutorialsSorting } from "../schemas/listTutorialsSchema";
-import { createTutorial, deleteTutorial, deleteUsersTutorials, getTutorial, getTutorials } from "../services/tutorialsService";
+import { UpdateTutorialInput } from "../schemas/updateTutorialSchema";
+import { createTutorial, deleteTutorial, deleteUsersTutorials, getTutorial, getTutorials, updateTutorial } from "../services/tutorialsService";
 
 export const getTutorialHandler = async (req: Request<Record<string, string>, {}, never, {}>, res: Response, next: NextFunction) => {
   const tutorialId = parseInt(req.params.id);
@@ -10,7 +11,7 @@ export const getTutorialHandler = async (req: Request<Record<string, string>, {}
   try {
     const tutorial = await getTutorial(tutorialId);
     if (!tutorial) {
-      next(new NotFoundError("Tutorial not found"));
+      return next(new NotFoundError("Tutorial not found"));
     }
 
     res.status(200).json(tutorial);
@@ -54,6 +55,23 @@ export const createTutorialHandler = async (req: Request<{}, {}, CreateTutorialI
   }
 };
 
+export const updateTutorialHandler = async (req: Request<Record<string, string>, {}, UpdateTutorialInput>, res: Response, next: NextFunction) => {
+  const tutorialId = parseInt(req.params.id);
+  const tutorialInput = req.body;
+  const { userId } = req.accessToken!;
+
+  try {
+    const tutorial = await updateTutorial(tutorialId, userId, tutorialInput);
+    if (!tutorial) {
+      return next(new NotFoundError("Tutorial not found"));
+    }
+
+    res.status(200).json(tutorial);
+  } catch (error: unknown) {
+    next(error);
+  }
+};
+
 export const deleteTutorialHandler = async (req: Request<Record<string, string>, {}, never>, res: Response, next: NextFunction) => {
   const tutorialId = parseInt(req.params.id);
   const { userId } = req.accessToken!;
@@ -61,7 +79,7 @@ export const deleteTutorialHandler = async (req: Request<Record<string, string>,
   try {
     const tutorial = await deleteTutorial(userId, tutorialId);
     if (!tutorial) {
-      res.status(204).send();
+      return res.status(204).send();
     }
 
     res.status(200).json({ tutorial });
