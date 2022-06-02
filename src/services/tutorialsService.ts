@@ -1,6 +1,8 @@
 import { Op } from "sequelize";
 import { Sequelize } from "sequelize-typescript";
+import { ForbiddenError } from "../errors";
 import Tutorial from "../models/Tutorial";
+import User from "../models/User";
 import { CreateTutorialInput } from "../schemas/createTutorialSchema";
 import { ListTutorialsFilters, ListTutorialsPaging, ListTutorialsSorting } from "../schemas/listTutorialsSchema";
 
@@ -33,6 +35,18 @@ export const getTutorials = async (filters: ListTutorialsFilters, paging: ListTu
       limit,
     },
   };
+};
+
+export const deleteTutorial = async (userId: number, tutorialId: number) => {
+  const tutorial = await Tutorial.findByPk(tutorialId, { include: User });
+  if (!tutorial) return null;
+
+  if (tutorial.get("userId") !== userId) {
+    throw new ForbiddenError("You are not allowed to delete tutorials you don't own");
+  }
+
+  tutorial.destroy();
+  return tutorial;
 };
 
 export const createTutorial = async (userId: number, tutorialData: CreateTutorialInput) => {

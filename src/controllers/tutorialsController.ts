@@ -2,13 +2,13 @@ import { NextFunction, Request, Response } from "express";
 import { NotFoundError } from "../errors";
 import { CreateTutorialInput } from "../schemas/createTutorialSchema";
 import { ListTutorialsSorting } from "../schemas/listTutorialsSchema";
-import { createTutorial, getTutorial, getTutorials } from "../services/tutorialsService";
+import { createTutorial, deleteTutorial, getTutorial, getTutorials } from "../services/tutorialsService";
 
 export const getTutorialHandler = async (req: Request<Record<string, string>, {}, never, {}>, res: Response, next: NextFunction) => {
-  const id = parseInt(req.params.id);
+  const tutorialId = parseInt(req.params.id);
 
   try {
-    const tutorial = await getTutorial(id);
+    const tutorial = await getTutorial(tutorialId);
     if (!tutorial) {
       next(new NotFoundError("Tutorial not found"));
     }
@@ -49,6 +49,22 @@ export const createTutorialHandler = async (req: Request<{}, {}, CreateTutorialI
   try {
     const tutorial = await createTutorial(userId, tutorialInput);
     res.status(201).json(tutorial);
+  } catch (error: unknown) {
+    next(error);
+  }
+};
+
+export const deleteTutorialHandler = async (req: Request<Record<string, string>, {}, never>, res: Response, next: NextFunction) => {
+  const tutorialId = parseInt(req.params.id);
+  const { userId } = req.accessToken!;
+
+  try {
+    const tutorial = await deleteTutorial(userId, tutorialId);
+    if (!tutorial) {
+      res.status(204).send();
+    }
+
+    res.status(200).json({ tutorial });
   } catch (error: unknown) {
     next(error);
   }

@@ -12,5 +12,3 @@ export const getTutorialSchema = z.object({
       .transform((value) => parseInt(value)),
   }),
 });
-
-export type GetTutorialParams = z.infer<typeof getTutorialSchema>["params"];
