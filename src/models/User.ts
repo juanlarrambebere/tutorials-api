@@ -1,4 +1,5 @@
 import { AllowNull, Column, Index, Model, Table } from "sequelize-typescript";
+import { UserRole } from "../types";
 
 @Table
 class User extends Model {
@@ -22,6 +23,10 @@ class User extends Model {
   @AllowNull(false)
   @Column
   password: string;
+
+  @AllowNull(false)
+  @Column
+  role: UserRole;
 }
 
 export default User;
