@@ -29,3 +29,9 @@ export class ForbiddenError extends ApiError {
     super(message, 403, "forbidden", details);
   }
 }
+
+export class NotFoundError extends ApiError {
+  constructor(message: string, details = null) {
+    super(message, 403, "not_found", details);
+  }
+}

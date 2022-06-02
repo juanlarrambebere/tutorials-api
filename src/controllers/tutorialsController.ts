@@ -1,9 +1,25 @@
 import { NextFunction, Request, Response } from "express";
+import { NotFoundError } from "../errors";
 import { CreateTutorialInput } from "../schemas/createTutorialSchema";
 import { ListTutorialsSorting } from "../schemas/listTutorialsSchema";
-import { createTutorial, getTutorials } from "../services/tutorialsService";
+import { createTutorial, getTutorial, getTutorials } from "../services/tutorialsService";
 
-export const getTutorialsHandler = async (req: Request<{}, {}, never, { [paramName: string]: string | undefined }>, res: Response, next: NextFunction) => {
+export const getTutorialHandler = async (req: Request<Record<string, string>, {}, never, {}>, res: Response, next: NextFunction) => {
+  const id = parseInt(req.params.id);
+
+  try {
+    const tutorial = await getTutorial(id);
+    if (!tutorial) {
+      next(new NotFoundError("Tutorial not found"));
+    }
+
+    res.status(200).json(tutorial);
+  } catch (error: unknown) {
+    next(error);
+  }
+};
+
+export const getTutorialsHandler = async (req: Request<{}, {}, never, Record<string, string>>, res: Response, next: NextFunction) => {
   const filters = {
     title: req.query.title,
     description: req.query.description,

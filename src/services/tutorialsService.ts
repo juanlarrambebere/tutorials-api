@@ -8,6 +8,10 @@ export const MAX_LIMIT = 200;
 const DEFAULT_OFFSET = 0;
 const DEFAULT_LIMIT = 50;
 
+export const getTutorial = async (id: number) => {
+  return await Tutorial.findByPk(id);
+};
+
 export const getTutorials = async (filters: ListTutorialsFilters, paging: ListTutorialsPaging, sorting: ListTutorialsSorting) => {
   const { offset = DEFAULT_OFFSET, limit = DEFAULT_LIMIT } = paging;
 
