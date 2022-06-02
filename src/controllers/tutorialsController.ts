@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { NotFoundError } from "../errors";
 import { CreateTutorialInput } from "../schemas/createTutorialSchema";
 import { ListTutorialsSorting } from "../schemas/listTutorialsSchema";
-import { createTutorial, deleteTutorial, getTutorial, getTutorials } from "../services/tutorialsService";
+import { createTutorial, deleteTutorial, deleteUsersTutorials, getTutorial, getTutorials } from "../services/tutorialsService";
 
 export const getTutorialHandler = async (req: Request<Record<string, string>, {}, never, {}>, res: Response, next: NextFunction) => {
   const tutorialId = parseInt(req.params.id);
@@ -65,6 +65,18 @@ export const deleteTutorialHandler = async (req: Request<Record<string, string>,
     }
 
     res.status(200).json({ tutorial });
+  } catch (error: unknown) {
+    next(error);
+  }
+};
+
+export const deleteUsersTutorialsHandler = async (req: Request<Record<string, string>, {}, never>, res: Response, next: NextFunction) => {
+  const { userId } = req.accessToken!;
+
+  try {
+    await deleteUsersTutorials(userId);
+
+    res.status(200).json({ message: "All your tutorials were deleted" });
   } catch (error: unknown) {
     next(error);
   }

@@ -49,6 +49,10 @@ export const deleteTutorial = async (userId: number, tutorialId: number) => {
   return tutorial;
 };
 
+export const deleteUsersTutorials = async (userId: number) => {
+  return await Tutorial.destroy({ where: { userId } });
+};
+
 export const createTutorial = async (userId: number, tutorialData: CreateTutorialInput) => {
   return await Tutorial.create({ userId, ...tutorialData });
 };
