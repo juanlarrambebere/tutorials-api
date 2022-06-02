@@ -20,16 +20,16 @@ const router = express.Router();
 
 router.use(authenticate);
 
-router.get("/", validateSchema(listTutorialsSchema), getTutorialsHandler);
+router.get("/", authorize, validateSchema(listTutorialsSchema), getTutorialsHandler);
 
 router.post("/", authorize, validateSchema(createTutorialSchema), createTutorialHandler);
 
-router.get("/:id", validateSchema(getTutorialSchema), getTutorialHandler);
+router.get("/:id", authorize, validateSchema(getTutorialSchema), getTutorialHandler);
 
-router.put("/:id", validateSchema(updateTutorialSchema), updateTutorialHandler);
+router.put("/:id", authorize, validateSchema(updateTutorialSchema), updateTutorialHandler);
 
-router.delete("/mass_delete", deleteUsersTutorialsHandler);
+router.delete("/mass_delete", authorize, deleteUsersTutorialsHandler);
 
-router.delete("/:id", validateSchema(deleteTutorialSchema), deleteTutorialHandler);
+router.delete("/:id", authorize, validateSchema(deleteTutorialSchema), deleteTutorialHandler);
 
 export default router;
