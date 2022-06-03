@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { UnauthorizedError } from "../errors";
-import { decodeAccessToken } from "../services/authService";
+import { decodeAccessToken } from "../services/authService/authService";
 
 const ACCESS_TOKEN_HEADER_NAME = "X-Access-Token";
 

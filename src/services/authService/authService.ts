@@ -1,7 +1,7 @@
 import argon2 from "argon2";
 import jwt from "jsonwebtoken";
-import User from "../models/User";
-import { AccessTokenRaw, UserRole } from "../types";
+import User from "../../models/User";
+import { AccessTokenRaw, UserRole } from "../../types";
 
 export const authenticateUser = async (email: string, password: string): Promise<string | null> => {
   const user = await User.findOne({ where: { email } });
@@ -37,7 +37,7 @@ export const decodeAccessToken = async (encodedAccessToken: string) => {
   try {
     tokenRaw = <AccessTokenRaw>jwt.verify(encodedAccessToken, process.env.AUTHENTICATION_SECRET!);
   } catch (_error) {
-    return undefined;
+    return null;
   }
 
   const user = await User.findByPk(tokenRaw.userId);
@@ -48,5 +48,5 @@ export const decodeAccessToken = async (encodedAccessToken: string) => {
         role: tokenRaw.role as UserRole,
         signedAt: new Date(tokenRaw.signedAt),
       }
-    : undefined;
+    : null;
 };

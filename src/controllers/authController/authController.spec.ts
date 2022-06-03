@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import { UnauthorizedError } from "../../errors";
-import { authenticateUser } from "../../services/authService";
+import { authenticateUser } from "../../services/authService/authService";
 import { authHandler } from "./authController";
 
-jest.mock("../../services/authService", () => ({
+jest.mock("../../services/authService/authService", () => ({
   authenticateUser: jest.fn(),
 }));
 
