@@ -1,6 +1,6 @@
 import "dotenv/config";
 import express from "express";
-import errorHandler from "./middlewares/errorHandler";
+import errorHandler from "./middlewares/errorHandler/errorHandler";
 import database from "./models";
 import authRouter from "./routers/authRouter";
 import tutorialsRouter from "./routers/tutorialsRouter";
