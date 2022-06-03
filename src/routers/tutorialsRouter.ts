@@ -9,7 +9,7 @@ import {
 } from "../controllers/tutorialsController";
 import authenticate from "../middlewares/authentication";
 import authorize from "../middlewares/authorization";
-import { validateSchema } from "../middlewares/schemaValidator";
+import { validateSchema } from "../middlewares/schemaValidator/schemaValidator";
 import { createTutorialSchema } from "../schemas/createTutorialSchema/createTutorialSchema";
 import { deleteTutorialSchema } from "../schemas/deleteTutorialSchema/deleteTutorialSchema";
 import { getTutorialSchema } from "../schemas/getTutorialSchema";
