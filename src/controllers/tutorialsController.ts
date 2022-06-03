@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { NotFoundError } from "../errors";
-import { CreateTutorialInput } from "../schemas/createTutorialSchema";
+import { CreateTutorialInput } from "../schemas/createTutorialSchema/createTutorialSchema";
 import { ListTutorialsSorting } from "../schemas/listTutorialsSchema";
 import { UpdateTutorialInput } from "../schemas/updateTutorialSchema";
 import { createTutorial, deleteTutorial, deleteUsersTutorials, getTutorial, getTutorials, updateTutorial } from "../services/tutorialsService";

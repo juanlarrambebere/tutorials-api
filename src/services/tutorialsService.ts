@@ -2,7 +2,7 @@ import { Op } from "sequelize";
 import { Sequelize } from "sequelize-typescript";
 import { ForbiddenError } from "../errors";
 import Tutorial from "../models/Tutorial";
-import { CreateTutorialInput } from "../schemas/createTutorialSchema";
+import { CreateTutorialInput } from "../schemas/createTutorialSchema/createTutorialSchema";
 import { ListTutorialsFilters, ListTutorialsPaging, ListTutorialsSorting } from "../schemas/listTutorialsSchema";
 import { UpdateTutorialInput } from "../schemas/updateTutorialSchema";
 

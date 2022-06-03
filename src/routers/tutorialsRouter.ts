@@ -10,7 +10,7 @@ import {
 import authenticate from "../middlewares/authentication";
 import authorize from "../middlewares/authorization";
 import { validateSchema } from "../middlewares/schemaValidator";
-import { createTutorialSchema } from "../schemas/createTutorialSchema";
+import { createTutorialSchema } from "../schemas/createTutorialSchema/createTutorialSchema";
 import { deleteTutorialSchema } from "../schemas/deleteTutorialSchema";
 import { getTutorialSchema } from "../schemas/getTutorialSchema";
 import { listTutorialsSchema } from "../schemas/listTutorialsSchema";
