@@ -29,6 +29,9 @@ class User extends Model {
   @AllowNull(false)
   @Column
   role: UserRole;
+
+  @Column
+  accessToken: string;
 }
 
 export default User;
