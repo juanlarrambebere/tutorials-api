@@ -1,6 +1,8 @@
 import { AllowNull, Column, Index, Model, Table } from "sequelize-typescript";
 import { UserRole } from "../types";
 
+export const USER_ROLES = ["admin", "user"] as const;
+
 @Table
 class User extends Model {
   @AllowNull(false)

@@ -18,4 +18,4 @@ export const updateTutorialSchema = z.object({
   params: tutorialParamsSchema,
 });
 
-export type UpdateTutorialInput = z.infer<typeof updateTutorialSchema>["body"];
+export type UpdateTutorialInput = z.infer<typeof bodySchema>;

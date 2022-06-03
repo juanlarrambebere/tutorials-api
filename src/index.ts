@@ -4,6 +4,7 @@ import errorHandler from "./middlewares/errorHandler";
 import database from "./models";
 import authRouter from "./routers/authRouter";
 import tutorialsRouter from "./routers/tutorialsRouter";
+import usersRouter from "./routers/usersRouter";
 
 const PORT = process.env.APP_PORT;
 
@@ -11,6 +12,7 @@ const app = express();
 
 app.use(express.json());
 
+app.use("/users", usersRouter);
 app.use("/auth", authRouter);
 app.use("/tutorials", tutorialsRouter);
 
