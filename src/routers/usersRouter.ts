@@ -1,7 +1,7 @@
 import express from "express";
 import { createUserHandler } from "../controllers/usersController";
 import { validateSchema } from "../middlewares/schemaValidator";
-import { createUserSchema } from "../schemas/createUserSchema";
+import { createUserSchema } from "../schemas/createUserSchema/createUserSchema";
 
 const router = express.Router();
 

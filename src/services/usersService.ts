@@ -2,7 +2,7 @@ import argon2 from "argon2";
 import { UniqueConstraintError } from "sequelize";
 import { BadRequestError } from "../errors";
 import User from "../models/User";
-import { CreateUserInput } from "../schemas/createUserSchema";
+import { CreateUserInput } from "../schemas/createUserSchema/createUserSchema";
 
 export const createUser = async (userInput: CreateUserInput) => {
   userInput.password = await argon2.hash(userInput.password);

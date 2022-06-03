@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { USER_ROLES } from "../models/User";
-import { UserRole } from "../types";
+import { USER_ROLES } from "../../models/User";
+import { UserRole } from "../../types";
 
 const STRONG_PASSWORD_PATTERN = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})/;
 
@@ -15,7 +15,7 @@ const bodySchema = z.object({
     required_error: "name is required",
   }),
   lastName: z.string({
-    required_error: "lasName is required",
+    required_error: "lastName is required",
   }),
   email: z
     .string({
