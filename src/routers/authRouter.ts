@@ -4,7 +4,7 @@ import { validateSchema } from "../middlewares/schemaValidator/schemaValidator";
 import { userAuthSchema } from "../schemas/userAuthInputSchema";
 
 const router = express.Router();
-console.log("ROUTER", router);
+
 router.post("/", validateSchema(userAuthSchema), authHandler);
 
 export default router;

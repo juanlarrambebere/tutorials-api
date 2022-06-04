@@ -1,0 +1,280 @@
+{
+	"info": {
+		"_postman_id": "905863b4-4625-472c-98aa-60ee25c87297",
+		"name": "tutorials-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "[Users] Create user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Juan\",\n    \"lastName\": \"Perez\",\n    \"email\": \"juan.perez@gmail.com\",\n    \"password\": \"A1aaaaa%\",\n    \"role\": \"admin\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/users",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Auth] Authenticate user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Set the access token into an environment variable \", function () {",
+							"    let accessToken = \"\";",
+							"    ",
+							"    if (pm.response.code === 200) {",
+							"        var jsonData = pm.response.json();",
+							"        accessToken = jsonData.accessToken;",
+							"    }",
+							"",
+							"    postman.setEnvironmentVariable(\"accessToken\", accessToken);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"juan.perez@gmail.com\",\n    \"password\": \"A1aaaaa%\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/auth",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Tutorials] Create tutorial",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Access-Token",
+						"value": "{{accessToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"BUenooo 2\",\n    \"videoUrl\": \"http://klsdfklksldf.com\",\n    \"description\": \"This tutorial bla bla bla\",\n    \"status\": \"the status\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/tutorials",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"tutorials"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Tutorials] List tutorials",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Access-Token",
+						"value": "{{accessToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/tutorials?offset=0&limit=50&title=test&description=test&sortBy=id",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"tutorials"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "0"
+						},
+						{
+							"key": "limit",
+							"value": "50"
+						},
+						{
+							"key": "title",
+							"value": "test"
+						},
+						{
+							"key": "description",
+							"value": "test"
+						},
+						{
+							"key": "sortBy",
+							"value": "id"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Tutorials] Get tutorial",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Access-Token",
+						"value": "{{accessToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/tutorials/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"tutorials",
+						"1"
+					],
+					"query": [
+						{
+							"key": "X-Access-Token",
+							"value": "{{accessToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Tutorials] Delete tutorial",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "X-Access-Token",
+						"value": "{{accessToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/tutorials/22",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"tutorials",
+						"22"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Tutorials] Mass delete tutorials",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "X-Access-Token",
+						"value": "{{accessToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/tutorials/mass_delete",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"tutorials",
+						"mass_delete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Tutorials] Update tutorial",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-Access-Token",
+						"value": "{{accessToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"new title\",\n    \"status\": \"published\",\n    \"description\": \"dfsdfsdfs\",\n    \"videoUrl\": \"http://112.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/tutorials/23",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"tutorials",
+						"23"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
